@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="description" content="Colorful mobile-first handwriting assessment PWA with shared cloud storage." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>WriteWise Graphology</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark">✍️</span><span>WriteWise</span></div>
+    <button id="installBtn" class="ghost-btn hidden">Install App</button>
+  </header>
+
+  <main class="app-shell">
+    <section id="homeView" class="view">
+      <div class="hero-card">
+        <div class="sparkle">✨</div>
+        <h1>Discover your handwriting story</h1>
+        <p>Upload a handwriting sample and receive a manually prepared report from the site administrator.</p>
+        <input id="customerNameInput" class="big-input" maxlength="50" placeholder="Enter your name" autocomplete="name" />
+        <input id="accessCodeInput" class="big-input" maxlength="50" placeholder="Your private access code" autocomplete="off" />
+        <button id="generateCodeBtn" class="secondary-btn" type="button">Generate New Access Code</button>
+        <button id="customerBtn" class="primary-btn">Continue as Customer</button>
+        <button id="adminBtn" class="secondary-btn">Open Admin Panel</button>
+        <p class="tiny">Cloud mode: no Google login and no payment gateway. Save your private access code to view your report later.</p>
+      </div>
+    </section>
+
+    <section id="customerView" class="view hidden">
+      <div class="welcome-row">
+        <div><p class="eyebrow">Welcome</p><h2 id="customerName">Customer</h2></div>
+        <button id="customerHomeBtn" class="icon-btn" aria-label="Return home">⌂</button>
+      </div>
+
+      <div class="step-card colorful-one">
+        <div class="step-badge">1</div>
+        <div><h3>Upload handwriting</h3><p>Use a bright, uncropped image containing at least 8–10 handwritten lines.</p></div>
+        <label class="upload-zone" for="imageInput">
+          <span class="upload-icon">📷</span>
+          <strong>Choose handwriting image</strong>
+          <span>Camera or gallery · JPG, PNG, WEBP</span>
+        </label>
+        <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+        <img id="preview" class="preview hidden" alt="Handwriting preview" />
+        <textarea id="customerNote" maxlength="500" placeholder="Optional: What would you like the assessor to focus on?"></textarea>
+        <label class="consent-row"><input id="consentCheck" type="checkbox" /> I understand this is not a medical or psychological diagnosis.</label>
+        <button id="uploadBtn" class="primary-btn" disabled>Submit for Assessment</button>
+      </div>
+
+      <div class="step-card colorful-two">
+        <div class="step-badge">2</div>
+        <div><h3>Your latest report</h3><p id="reportStatusText">No submission yet.</p></div>
+        <div id="reportBox" class="report-box hidden"></div>
+      </div>
+
+      <div class="step-card">
+        <h3>Submission history</h3>
+        <div id="customerHistory" class="history-list"></div>
+      </div>
+    </section>
+
+    <section id="adminLoginView" class="view hidden">
+      <div class="hero-card">
+        <div class="sparkle">🔐</div>
+        <h1>Admin access</h1>
+        <p>Enter the private admin key configured in <strong>config.js</strong>.</p>
+        <input id="adminPinInput" class="big-input" type="password" inputmode="numeric" maxlength="8" placeholder="Admin PIN" />
+        <button id="adminLoginBtn" class="primary-btn">Open Admin Dashboard</button>
+        <button id="adminBackBtn" class="secondary-btn">Back</button>
+      </div>
+    </section>
+
+    <section id="adminView" class="view hidden">
+      <div class="welcome-row">
+        <div><p class="eyebrow">Admin workspace</p><h2>Manual assessments</h2></div>
+        <button id="adminHomeBtn" class="icon-btn" aria-label="Return home">⌂</button>
+      </div>
+      <div class="admin-toolbar">
+        <button id="changePinBtn" class="secondary-btn">Change Admin PIN</button>
+        <button id="exportBtn" class="secondary-btn">Export Backup</button>
+        <label class="secondary-btn file-label">Import Backup<input id="importInput" type="file" accept="application/json" hidden></label>
+      </div>
+      <div id="adminQueue" class="queue"></div>
+    </section>
+
+    <section class="disclaimer-card">
+      <h3>Important disclaimer</h3>
+      <p>Graphology is an alternative or interpretive practice and is not scientifically established as a diagnostic method. Reports are for personal reflection and entertainment only. They must not be used for medical, mental-health, legal, employment, credit, insurance, relationship, or other high-stakes decisions.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

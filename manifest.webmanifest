@@ -1,0 +1,10 @@
+{
+  "name":"WriteWise Graphology",
+  "short_name":"WriteWise",
+  "description":"Paid manual handwriting assessment PWA",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#f7f3ff",
+  "theme_color":"#7c3aed",
+  "icons":[{"src":"icons.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
